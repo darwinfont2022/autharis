@@ -1,0 +1,41 @@
+# Binaries
+/bin/
+/build/
+/dist/
+
+# Go build
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Vendor (si usas go mod vendor)
+vendor/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+
+# Migration files cache (si usas golang-migrate)
+*.lock
