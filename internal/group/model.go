@@ -1,8 +1,9 @@
 package group
 
 import (
-	"Autharis/internal/role"
 	"time"
+
+	"github.com/darwinfont2022/autharis/internal/role"
 )
 
 type Group struct {

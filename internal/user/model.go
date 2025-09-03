@@ -1,7 +1,10 @@
 package user
 
-import "time"
-import "Autharis/internal/role"
+import (
+	"time"
+
+	"github.com/darwinfont2022/autharis/internal/role"
+)
 
 type User struct {
 	ID           string            `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`

@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/darwinfont2022/autharis/internal/database/db"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -21,6 +23,8 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+
+	db.InitDB()
 
 	// Inicializar router de Gin
 	router := gin.Default()
