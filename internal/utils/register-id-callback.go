@@ -12,7 +12,7 @@ func RegisterIDCallback(db *gorm.DB, model any, prefix string) {
 		if tx.Statement.Schema != nil && tx.Statement.Schema.ModelType == tx.Statement.ReflectValue.Type() {
 			field := tx.Statement.Schema.LookUpField("ID")
 			if field != nil {
-				v, isZero := field.ValueOf(tx.Statement.Context, tx.Statement.ReflectValue)
+				_, isZero := field.ValueOf(tx.Statement.Context, tx.Statement.ReflectValue)
 				if isZero {
 					newID := fmt.Sprintf("%s-%s", prefix, uuid.New().String())
 					_ = field.Set(tx.Statement.Context, tx.Statement.ReflectValue, newID)

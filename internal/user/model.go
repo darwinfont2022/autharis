@@ -3,7 +3,7 @@ package user
 import (
 	"time"
 
-	"github.com/darwinfont2022/autharis/internal/role"
+	"autharis/internal/role"
 )
 
 type User struct {

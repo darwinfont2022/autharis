@@ -1,4 +1,4 @@
-module github.com/darwinfont2022/autharis
+module autharis
 
 go 1.24.6
 

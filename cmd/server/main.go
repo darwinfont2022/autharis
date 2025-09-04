@@ -1,11 +1,10 @@
 package main
 
 import (
+	"autharis/internal/database"
 	"fmt"
 	"log"
 	"os"
-
-	"github.com/darwinfont2022/autharis/internal/database/db"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -24,7 +23,7 @@ func main() {
 		port = "8080"
 	}
 
-	db.InitDB()
+	database.InitDB()
 
 	// Inicializar router de Gin
 	router := gin.Default()

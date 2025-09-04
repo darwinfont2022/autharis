@@ -3,7 +3,7 @@ package group
 import (
 	"time"
 
-	"github.com/darwinfont2022/autharis/internal/role"
+	"autharis/internal/role"
 )
 
 type Group struct {
