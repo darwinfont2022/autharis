@@ -1,18 +1,27 @@
 package role
 
-import "time"
+import (
+	"autharis/internal/permission"
+	"time"
+
+	"gorm.io/datatypes"
+)
 
 type Role struct {
-	ID          string            `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
-	Name        string            `gorm:"uniqueIndex;not null" json:"name"`
-	Description string            `gorm:"type:text" json:"description,omitempty"`
-	RealmID     *string           `gorm:"type:uuid" json:"realm_id,omitempty"`
-	ClientID    *string           `gorm:"type:uuid" json:"client_id,omitempty"`
-	Composite   bool              `gorm:"default:false" json:"composite"`
-	Children    []*Role           `gorm:"many2many:role_composites;constraint:OnDelete:CASCADE" json:"children,omitempty"`
-	Attributes  map[string]string `gorm:"-" json:"attributes,omitempty"`
-	Active      bool              `gorm:"default:true" json:"active"`
-	System      bool              `gorm:"default:false" json:"system"`
-	CreatedAt   time.Time         `json:"created_at"`
-	UpdatedAt   time.Time         `json:"updated_at"`
+	ID          string `gorm:"type:string;primaryKey" json:"id"`
+	Name        string `gorm:"uniqueIndex;not null" json:"name"`
+	Description string `gorm:"type:text" json:"description,omitempty"`
+
+	RealmID  *string `gorm:"type:string" json:"realm_id,omitempty"`
+	ClientID *string `gorm:"type:string" json:"client_id,omitempty"`
+
+	Composite bool    `gorm:"default:false" json:"composite"`
+	Children  []*Role `gorm:"many2many:role_composites;constraint:OnDelete:CASCADE" json:"children,omitempty"`
+
+	Attributes  datatypes.JSONMap        `gorm:"type:jsonb" json:"attributes,omitempty"`
+	Permissions []*permission.Permission `gorm:"many2many:role_permissions"`
+	Active      bool                     `gorm:"default:true" json:"active"`
+	System      bool                     `gorm:"default:false" json:"system"`
+	CreatedAt   time.Time                `json:"created_at"`
+	UpdatedAt   time.Time                `json:"updated_at"`
 }

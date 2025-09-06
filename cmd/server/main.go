@@ -24,6 +24,8 @@ func main() {
 	}
 
 	database.InitDB()
+	database.InitMigration()
+	database.SeedData()
 
 	// Inicializar router de Gin
 	router := gin.Default()

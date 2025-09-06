@@ -7,15 +7,17 @@ import (
 	"gorm.io/gorm"
 )
 
-func RegisterIDCallback(db *gorm.DB, model any, prefix string) {
-	db.Callback().Create().Before("gorm:create").Register(fmt.Sprintf("set_id_%T", model), func(tx *gorm.DB) {
-		if tx.Statement.Schema != nil && tx.Statement.Schema.ModelType == tx.Statement.ReflectValue.Type() {
-			field := tx.Statement.Schema.LookUpField("ID")
+func RegisterIDCallback[T any](db *gorm.DB, prefix string) {
+	db.Callback().Create().Before("gorm:create").Register(fmt.Sprintf("set_id_%T", *new(T)), func(tx *gorm.DB) {
+		stmt := tx.Statement
+		if stmt.Schema != nil {
+			field := stmt.Schema.LookUpField("ID")
 			if field != nil {
-				_, isZero := field.ValueOf(tx.Statement.Context, tx.Statement.ReflectValue)
-				if isZero {
+				// fieldValue obtiene el valor del campo ID
+				fieldValue, _ := field.ValueOf(tx.Statement.Context, stmt.ReflectValue)
+				if fieldValue == "" {
 					newID := fmt.Sprintf("%s-%s", prefix, uuid.New().String())
-					_ = field.Set(tx.Statement.Context, tx.Statement.ReflectValue, newID)
+					_ = field.Set(tx.Statement.Context, stmt.ReflectValue, newID)
 				}
 			}
 		}

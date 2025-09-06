@@ -1,9 +1,9 @@
-package relam
+package realm
 
 import "time"
 
 type Realm struct {
-	ID          string    `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
+	ID          string    `gorm:"primaryKey;size:64" json:"id"`
 	Name        string    `gorm:"uniqueIndex;not null" json:"name"`
 	Description string    `gorm:"type:text" json:"description,omitempty"`
 	Active      bool      `gorm:"default:true" json:"active"`
